@@ -23,6 +23,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <dropwizard.version>1.0.2</dropwizard.version>
         <mainClass>com.veamospues.bujo.BuJoApplication</mainClass>
+        <guice.version>4.1.0</guice.version>
+        <eclipselink.version>2.6.4</eclipselink.version>
+        <h2.version>1.4.192</h2.version>
+        <hibernate.version>5.2.3.Final</hibernate.version>
     </properties>
 
     <dependencyManagement>
@@ -33,6 +37,12 @@
                 <version>${dropwizard.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -42,6 +52,40 @@
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
         </dependency>
+
+        <!--  GUICE & GUICE PERSIST -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-persist</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+
+        <!-- HIBERNATE -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- H2 database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
