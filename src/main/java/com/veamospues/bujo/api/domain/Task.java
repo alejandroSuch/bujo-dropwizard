@@ -20,6 +20,10 @@ public class Task extends Bullet {
   @Temporal(TemporalType.TIMESTAMP)
   Date doneDate;
 
+  @Column(updatable = false, nullable = true)
+  @Temporal(TemporalType.TIMESTAMP)
+  Date cancelledDate;
+
   public Date getDoneDate() {
     return doneDate;
   }
@@ -29,5 +33,15 @@ public class Task extends Bullet {
     Preconditions.checkState((doneDate == null && this.doneDate == null) || (doneDate == null && this.doneDate != null));
 
     this.doneDate = doneDate;
+  }
+
+  public Date getCancelledDate() {
+    return cancelledDate;
+  }
+
+  public void setCancelledDate(Date cancelledDate) {
+    Preconditions.checkState(doneDate == null);
+
+    this.cancelledDate = cancelledDate;
   }
 }

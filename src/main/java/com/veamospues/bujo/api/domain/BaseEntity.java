@@ -1,5 +1,6 @@
 package com.veamospues.bujo.api.domain;
 
+import com.google.common.base.Preconditions;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -44,6 +45,7 @@ public class BaseEntity {
   }
 
   public void setDateCreated(Date dateCreated) {
+    Preconditions.checkArgument(dateCreated.after(new Date()));
     this.dateCreated = dateCreated;
   }
 
@@ -52,6 +54,8 @@ public class BaseEntity {
   }
 
   public void setLastUpdated(Date lastUpdated) {
+    Preconditions.checkArgument(lastUpdated.after(new Date()));
+
     this.lastUpdated = lastUpdated;
   }
 

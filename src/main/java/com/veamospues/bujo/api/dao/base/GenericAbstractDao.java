@@ -2,9 +2,12 @@ package com.veamospues.bujo.api.dao.base;
 
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +17,9 @@ import java.util.List;
 public abstract class GenericAbstractDao<T, K extends Serializable> implements GenericDao<T, K> {
   @Inject
   public Provider<EntityManager> entityManagerProvider;
+
+  @Inject
+  protected JPAQueryFactory queryFactory;
 
   Class<T> persistentClass;
 
@@ -40,12 +46,16 @@ public abstract class GenericAbstractDao<T, K extends Serializable> implements G
 
   @Override
   public T save(T entity) {
-    if (entityManager().contains(entity)) {
+    if (isAlreadyPersisted(entity)) {
       return entityManager().merge(entity);
     } else {
       entityManager().persist(entity);
       return entity;
     }
+  }
+
+  public boolean isAlreadyPersisted(T entity) {
+    return entityManager().contains(entity);
   }
 
   @Override

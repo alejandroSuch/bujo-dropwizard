@@ -4,7 +4,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import com.veamospues.bujo.config.guice.DbModule;
 import com.veamospues.bujo.resources.SaluteResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -34,7 +33,7 @@ public class BuJoApplication extends Application<BuJoConfiguration> {
   public void run(final BuJoConfiguration configuration, final Environment environment) {
     injector = Guice.createInjector(
             new JpaPersistModule("com.veamospues.bujo.pu"),
-            new DbModule()
+            new BuJoModule()
     );
 
     // injector.getInstance(PersistService.class).start();
